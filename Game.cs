@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Game
+namespace FightArena
 {
     class Game
     {
@@ -41,14 +41,10 @@ namespace Game
             int damage = 1;
 
             /* Monsters */
-            string[] Monster = { "Rat" , "Troll", "Dragon"};
-            
-            // Rat [Life, Damage]
-            int[] Rat = { 1, 1 };
-            // Troll[Life, Damage]
-            int[] Troll = { 5, 3 };
-            // Dragon[Life, Damage]
-            int[] Dragon = { 10, 5 };
+            Ratinfo Rat = new Ratinfo();
+            TrollInfo Troll = new TrollInfo();
+            DragonInfo Dragon = new DragonInfo();
+
                 Console.WriteLine("\nWelcome to the arena! \n \nEnter your heroes name:");
                 string name = Console.ReadLine();
 
@@ -59,16 +55,18 @@ namespace Game
                 Console.WriteLine("Strength: " + damage);
 
                 Console.WriteLine("\nWhat moster do you want to battle!\n" +
-                                    Monster[0] + " - Enter R\n" +
-                                    Monster[1] + " - Enter T\n" +
-                                    Monster[2] + " - Enter D\n");
+                                    Rat.name + " - Enter R\n" +
+                                    Troll.name + " - Enter T\n" +
+                                    Dragon.name + " - Enter D\n");
                 answer = Console.ReadLine();
+
+                Console.Clear();
 
                 switch (answer)
                 {
                     case "R":
                         Console.WriteLine("Your fighting RAT!\n");
-                        bool win = Battle(life, damage, Rat[0], Rat[1]);
+                        bool win = Battle(life, damage, Rat.life, Rat.damage);
                         if (win == true)
                         {
                             Console.WriteLine("You slayed Rat!\n\n You got 1+ life and 1+ damage\n");
@@ -85,7 +83,7 @@ namespace Game
 
                     case "T":
                         Console.WriteLine("Your fighting Troll!");
-                        win = Battle(life, damage, Troll[0], Troll[1]);
+                        win = Battle(life, damage, Troll.life, Troll.damage);
                         if (win == true)
                         {
                             Console.WriteLine("You slayed Troll!\n\n You got 1+ life and 1+ damage\n");
@@ -103,7 +101,7 @@ namespace Game
 
                     case "D":
                         Console.WriteLine("Your fighting Dragon!");
-                        win = Battle(life, damage, Dragon[0], Dragon[1]);
+                        win = Battle(life, damage, Dragon.life, Dragon.damage);
                         if (win == true)
                         {
                             Console.WriteLine("\nYou slayed Dragon!\n\n YOU FINALLY WON THE GAME!\n");
