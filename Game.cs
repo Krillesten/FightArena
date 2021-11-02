@@ -34,94 +34,130 @@ namespace FightArena
 
         static void Main(string[] args)
         {
-            bool Game = true;
-            string answer;
-            // Characters Specs
-            int life = 3;
-            int damage = 1;
+            bool gameRunning = true;
+            while (gameRunning)
+            {
+                bool Game = true;
+                string answer;
+                string continueGame;
+                
+                // Characters Specs
+                int life = 3;
+                int damage = 1;
 
-            /* Monsters */
-            Ratinfo Rat = new Ratinfo();
-            TrollInfo Troll = new TrollInfo();
-            DragonInfo Dragon = new DragonInfo();
+                /* Monsters */
+                Ratinfo Rat = new Ratinfo();
+                TrollInfo Troll = new TrollInfo();
+                DragonInfo Dragon = new DragonInfo();
 
                 Console.WriteLine("\nWelcome to the arena! \n \nEnter your heroes name:");
                 string name = Console.ReadLine();
 
-            while (Game == true)
-            {
-                Console.WriteLine("\n" + name + "`s stats:");
-                Console.WriteLine("Life: " + life);
-                Console.WriteLine("Strength: " + damage);
-
-                Console.WriteLine("\nWhat moster do you want to battle!\n" +
-                                    Rat.name + " - Enter R\n" +
-                                    Troll.name + " - Enter T\n" +
-                                    Dragon.name + " - Enter D\n");
-                answer = Console.ReadLine();
-
-                Console.Clear();
-
-                switch (answer)
+                do
                 {
-                    case "R":
-                        Console.WriteLine("Your fighting RAT!\n");
-                        bool win = Battle(life, damage, Rat.life, Rat.damage);
-                        if (win == true)
-                        {
-                            Console.WriteLine("You slayed Rat!\n\n You got 1+ life and 1+ damage\n");
-                            life++;
-                            damage++;
-                        } else
-                        {
-                            Console.WriteLine("You were slayed by rat!\n");
-                            Console.WriteLine("GAME OVER!\n");
-                            life = 3;
-                            damage = 1;
-                        }
-                        break;
+                    // Show players stats and let the player choose an opponent
+                    Console.WriteLine($"\n {name}`s stats:");
+                    Console.WriteLine($"Life: {life}");
+                    Console.WriteLine($"Strength: {damage}");
 
-                    case "T":
-                        Console.WriteLine("Your fighting Troll!");
-                        win = Battle(life, damage, Troll.life, Troll.damage);
-                        if (win == true)
-                        {
-                            Console.WriteLine("You slayed Troll!\n\n You got 1+ life and 1+ damage\n");
-                            life++;
-                            damage++;
-                        }
-                        else
-                        {
-                            Console.WriteLine("You were slayed by Troll!\n");
-                            Console.WriteLine("GAME OVER!");
-                            life = 3;
-                            damage = 1;
-                        }
-                        break;
+                    Console.WriteLine("\nWhat moster do you want to battle!\n" +
+                                        Rat.name + " - Enter r\n" +
+                                        Troll.name + " - Enter t\n" +
+                                        Dragon.name + " - Enter d\n");
+                    answer = Console.ReadLine();
 
-                    case "D":
-                        Console.WriteLine("Your fighting Dragon!");
-                        win = Battle(life, damage, Dragon.life, Dragon.damage);
-                        if (win == true)
-                        {
-                            Console.WriteLine("\nYou slayed Dragon!\n\n YOU FINALLY WON THE GAME!\n");
-                        }
-                        else
-                        {
-                            Console.WriteLine("You were slayed by Dragon!\n");
-                            Console.WriteLine("GAME OVER!");
-                            life = 3;
-                            damage = 1;
-                            Game = false;
-                        }
-                        break;
+                    Console.Clear();
 
-                    default:
-                        Console.WriteLine("Please choose R, T or D");
-                        break;
-                }
+                    // Run battle depending on players input
+                    switch (answer)
+                    {
+                        case "r":
+                            Console.WriteLine("You fighting RAT!\n");
+                            bool win = Battle(life, damage, Rat.life, Rat.damage);
+                            if (win == true)
+                            {
+                                Console.WriteLine("You slayed the Rat!\n\n You got 1+ life and 1+ damage\n");
+                                life++;
+                                damage++;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You were slayed by the rat!\n");
+                                Console.WriteLine("GAME OVER!\n Do you want to play again? (y/n)");
+                                continueGame = Console.ReadLine();
+                                if (continueGame == "y")
+                                {
+                                    Game = false;
+                                    gameRunning = true;
+                                }
+                                else if (continueGame == "n")
+                                {
+                                    Game = false;
+                                    gameRunning = false;
+                                }
+                        }
+                            break;
+
+                        case "t":
+                            Console.WriteLine("You fighting the Troll!");
+                            win = Battle(life, damage, Troll.life, Troll.damage);
+                            if (win == true)
+                            {
+                                Console.WriteLine("You slayed the Troll!\n\n You got 1+ life and 1+ damage\n");
+                                life++;
+                                damage++;
+                            }
+                            else
+                            {
+                                Console.WriteLine("You were slayed by the Troll!\n");
+                                Console.WriteLine("GAME OVER!\n Do you want to play again? (y/n)");
+                                continueGame = Console.ReadLine();
+                                if (continueGame == "y")
+                                {
+                                    Game = false;
+                                    gameRunning = true;
+                                }
+                                else if (continueGame == "n")
+                                {
+                                    Game = false;
+                                    gameRunning = false;
+                                }
+                        }
+                            break;
+
+                        case "d":
+                            Console.WriteLine("You fighting the Dragon!");
+                            win = Battle(life, damage, Dragon.life, Dragon.damage);
+                            if (win == true)
+                            {
+                                Console.WriteLine("\nYou slayed the Dragon!\n\n YOU FINALLY WON THE GAME!\n");
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("You were slayed by the Dragon!\n");
+                                Console.WriteLine("GAME OVER!\n Do you want to play again? (y/n)");
+                                continueGame = Console.ReadLine();
+                                if (continueGame == "y" )
+                                {
+                                    Game = false;
+                                    gameRunning = true;
+                                } 
+                                else if (continueGame == "n")
+                                {
+                                    Game = false;
+                                    gameRunning = false;
+                                }
+                            }
+                            break;
+
+                        default:
+                            Console.WriteLine("Please choose R, T or D");
+                            break;
+                    }
+                } while (Game == true);
             }
-            }
+        }
         }
     }
 
